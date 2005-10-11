@@ -5,7 +5,7 @@ use NEXT;
 
 require Data::UUID;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -44,7 +44,8 @@ in your application class:
         $c->remove_token;
     }
 
-input.html TT template:
+F<root/input.html> TT template:
+
     <html>
     <body>
     <form action="confirm" method="post">
@@ -53,7 +54,8 @@ input.html TT template:
     </body>
     </html>
 
-confirm.html TT template:
+F<root/confirm.html> TT template:
+
     <html>
     <body>
     <form action="complete" method="post">
@@ -63,15 +65,12 @@ confirm.html TT template:
     </body>
     </html>
 
-
 =head1 DESCRIPTION
 
 This plugin create, remove and validate transaction token, to be used for enforcing a single request for some transaction, for exapmle, you can prevent duplicate submits.
 
 Note:
- This plugin uses Data::UUID for creating transaction token for each request.
-
- This plugin requires a session plugin like Catalyst::Plugin::Session::FastMmap to store server side token.
+This plugin uses L<Data::UUID> for creating transaction token for each request.  Also this plugin requires a session plugin like L<Catalyst::Plugin::Session::FastMmap> to store server side token.
 
 =head1 EXTENDED METHODS
 
