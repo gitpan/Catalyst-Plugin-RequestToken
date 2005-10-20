@@ -5,7 +5,7 @@ use NEXT;
 
 require Data::UUID;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -65,6 +65,16 @@ F<root/confirm.html> TT template:
     </body>
     </html>
 
+or you can call prepare_token instead of a bunch of methods.
+And you don't have to write '<input type="hidden" name="token"... >' for token in your template.
+
+    sub input : Local {
+        my ( $self, $c ) = @_;
+
+        $c->stash->{template} = 'input.html';
+        $c->prepare_token;
+    }
+
 =head1 DESCRIPTION
 
 This plugin create, remove and validate transaction token, to be used for enforcing a single request for some transaction, for exapmle, you can prevent duplicate submits.
@@ -92,11 +102,35 @@ sub setup {
     return $c->NEXT::setup(@_);
 }
 
+sub finalize {
+    my $c = shift;
+    if ( $c->{_prepare_token} ) {
+        $c->{_prepare_token} = undef;
+        my $name  = $c->config->{token}->{request_name};
+        my $token = $c->create_token;
+        my $body  = $c->response->{body};
+        $body =~ s/(<form\s*.*?>)/$1\n<input type="hidden" name="$name" value="$token">/isg;
+        $c->response->output($body);
+    }
+    return $c->NEXT::finalize(@_);
+}
+
 =back
 
 =head1 METHODS
 
 =over 4
+
+=item prepare_token
+
+automatically append token hidden tag to response body.
+
+=cut
+
+sub prepare_token {
+    my $c = shift;
+    $c->{_prepare_token} = 1;
+}
 
 =item create_token
 
@@ -108,9 +142,10 @@ sub create_token {
     my $c = shift;
 
     my $token = new Data::UUID->create_str();
-    $c->log->debug("start create token : $token");
+    $c->log->debug("start create token : $token") if $c->debug;
     $c->session->{$c->config->{token}->{session_name}} = $token;
-    $c->req->param($c->config->{token}->{request_name} => $token);
+    $c->req->params->{ $c->config->{token}->{request_name} } = $token;
+    return $token;
 }
 
 =item remove_token

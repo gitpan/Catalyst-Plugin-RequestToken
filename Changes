@@ -1,7 +1,13 @@
 Revision history for Perl extension Catalyst::Plugin::RequestToken.
+0.03
+        - fixed bug: if request parameter already had token, create_token 
+                     method pushed duplicated token value into array.
+                     (thx Lyo Kato)
+        - add: prepare_token mehotd (by Lyo Kato)
+
 0.02
         - fixed pod document
 
 0.01  Tue Oct 11 20:32:36 2005
-		- first release
+        - first release
 
