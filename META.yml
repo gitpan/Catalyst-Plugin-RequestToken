@@ -1,10 +1,14 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Catalyst-Plugin-RequestToken
-version:      0.03
+version:      0.04
 version_from: lib/Catalyst/Plugin/RequestToken.pm
 installdirs:  site
 requires:
+    Catalyst:                      5.5
+    Catalyst::Plugin::Session:     0
+    Digest:                        0
+    Test::Simple:                  0.44
 
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+generated_by: ExtUtils::MakeMaker version 6.30

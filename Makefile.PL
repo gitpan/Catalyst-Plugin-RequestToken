@@ -1,12 +1,15 @@
-use 5.008005;
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
-    NAME              => 'Catalyst::Plugin::RequestToken',
-    VERSION_FROM      => 'lib/Catalyst/Plugin/RequestToken.pm', # finds $VERSION
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM  => 'lib/Catalyst/Plugin/RequestToken.pm', # retrieve abstract from module
-       AUTHOR         => 'A. U. Thor <hide@localdomain>') : ()),
+    NAME         => 'Catalyst::Plugin::RequestToken',
+    VERSION_FROM => 'lib/Catalyst/Plugin/RequestToken.pm', # finds $VERSION
+    AUTHOR       => 'Hideo Kimura (hide@hide-k.net)',
+    ABSTRACT     => 'Module abstract (<= 44 characters) goes here',
+    PREREQ_PM    => {
+                     'Test::Simple' => 0.44,
+                     'Catalyst' => 5.5,
+                     'Catalyst::Plugin::Session' => 0,
+                     'Digest' => 0,
+                    },
 );
