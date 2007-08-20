@@ -8,7 +8,7 @@ use Catalyst::Exception ();
 use Digest();
 use overload();
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub setup {
     my $c = shift;
@@ -67,9 +67,10 @@ sub validate_token {
     my $session = $c->session->{$c->config->{token}->{session_name}};
     my $request = $c->req->param($c->config->{token}->{request_name});
 
-    return undef if (!defined ($session) && !defined ($request));
-
-    my $res =  $session eq $request ? 1 : undef;
+    my $res;
+    if ($session && $request) {
+        $res = $session eq $request;
+    }
     if ($c->isa('Catalyst::Plugin::FormValidator::Simple') && !defined($res)) {
         $c->set_invalid_form($c->config->{token}->{request_name} => 'TOKEN');
     }
