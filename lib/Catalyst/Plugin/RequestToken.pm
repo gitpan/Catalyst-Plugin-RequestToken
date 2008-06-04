@@ -8,7 +8,7 @@ use Catalyst::Exception ();
 use Digest();
 use overload();
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 sub setup {
     my $c = shift;
@@ -102,8 +102,14 @@ __END__
 
 =head1 NAME
 
-Catalyst::Plugin::RequestToken - Handling transaction token for Catalyst
+Catalyst::Plugin::RequestToken - (DEPRECATED) Handling transaction token for Catalyst
 
+=head1 DEPRECATION NOTICE
+
+B<This module has been deprecated> in favor of L<Catalyst::Controller::RequestToken>.
+Please do not use it in new code. It has known compatibility issues and is absolutely
+not supported by anyone. It remains only in case you have existing code that
+relies on it.
 
 =head1 SYNOPSIS
 
@@ -114,7 +120,7 @@ in your application class:
         Session::State::Cookie
         Session::Store::FastMmap
         RequestToken 
-        FillForm
+        FillInForm
     /;
 
 in your contoller class:

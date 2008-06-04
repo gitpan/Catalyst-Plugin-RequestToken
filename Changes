@@ -1,5 +1,6 @@
 Revision history for Perl extension Catalyst::Plugin::RequestToken.
-
+0.06
+	- DEPRECATED in favor of Catalyst::Controller::RequestToken
 0.05
 	- fixed bug: validate_token method was broken
 0.04
